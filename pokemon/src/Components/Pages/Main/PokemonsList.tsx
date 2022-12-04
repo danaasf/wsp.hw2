@@ -6,14 +6,14 @@ import './styles.css'
 
 export interface PokemonsListProp {
     pokemons: Pokemon[];
-    setPokemons: React.Dispatch<React.SetStateAction<Pokemon[]>>;
+    setPokemons: (pokemons: Pokemon[]) => void;
 }
 
 export const PokemonsList: React.FC<PokemonsListProp> = ({
     pokemons,
     setPokemons,
 }) => {
-   
+
     const [currentInput, setCurrentInput] = React.useState<string>('');
     const getInitialIds = () => {
         const idSet = new Set();
@@ -24,42 +24,46 @@ export const PokemonsList: React.FC<PokemonsListProp> = ({
     }
 
     const fetchPokemonJSON = async (pokemonId: any): Promise<any> => fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`).then((res) => res.json());
-    
+    const capitalizeFirstLetter = (word: string) => word.charAt(0).toUpperCase() + word.slice(1);
+
     const initPokemonCollection = async() => {
         const ids = getInitialIds();
         const promises: Promise<any> [] = [];
 
-        ids.forEach((id) => promises.push(fetchPokemonJSON(id)));
+        ids.forEach((id) => promises.push(fetchPokemonJSON(id).then((pokemonJSON) => ({name: capitalizeFirstLetter(pokemonJSON.name), image: pokemonJSON.sprites.front_default}))));
 
-        const pokemons = await Promise.all(promises).then((res): Pokemon[] => res.map((pokemon: any) => {name: pokemon.name; image: pokemon.sprites.front_default}));
+        const pokemons = await Promise.all(promises);
+        console.log(pokemons);
+
         setPokemons(pokemons);
     }
 
-  
+
     useEffect(() => {
+        console.log('setPokemons', setPokemons);
+
         initPokemonCollection();
-    }, []);
+    }, [setPokemons]);
 
     return(
-        <> 
+        <>
             <h2> Pokemons Page </h2>
             <div className='page-container'>
-                </div> 
-          
-            <div className='pokemon-list'>
+                </div>
+
+            <div className='left-content'>
             {
             pokemons && pokemons.map (pokemon => {
                 return (
                 <div className='row pokemon' key={pokemon.name}>
-                    <span>{pokemon.name}</span>
-                    <span>{pokemon.image}</span>
+                    <PokemonIcon pokemon={pokemon} />
                 </div>
                 )
             })
             }
             </div>
 
-       
-           
+
+
         </>
     ) }

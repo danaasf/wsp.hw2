@@ -12,10 +12,10 @@ export const PokemonIcon: React.FC<PokemonIconProps> = ({
 
     const { name, image } = pokemon;
 
-    return(                    
+    return(
             <div className='icon'>
-                <h4> {name} </h4>
                 {image? <img src={image} alt={name} width="200" height="200" /> : null}
-            </div>        
+                <h2 className='pokemonName'> {name} </h2>
+            </div>
     );
 }
