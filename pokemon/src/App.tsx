@@ -1,16 +1,21 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Main from './Components/Main'
-import './Components/style.css'
+import { Pokemon } from './types';
+import { PokemonsList } from './Components/Pages/Main/PokemonsList';
+
 
 
 function App() {
-  return (
-    <>
-    <Main/>
-    </>
+
+  const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
+    return (
+    <div className="root">
+            <PokemonsList pokemons={pokemons} setPokemons={setPokemons} />
+
+    </div>
   );
+   
 }
 
 export default App;
