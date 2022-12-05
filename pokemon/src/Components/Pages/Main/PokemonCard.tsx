@@ -14,8 +14,9 @@ export const PokemonCard: React.FC<PokemonIconProps> = ({fetchPokemonJSON, pokem
         fetchPokemonJSON(pokemonId).then((res) => setPokemonJSON(res))
     }, [pokemonId])
     return(
-        <div className='pokemonCard'>
-            {pokemonJSON || <></>}
+        <div className='right-content'>
+            abcs
+            {JSON.stringify(pokemonJSON) || <></>}
         </div>
     );
 }

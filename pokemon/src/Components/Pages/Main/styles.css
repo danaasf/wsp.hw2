@@ -14,10 +14,10 @@ body{
     padding-top: 100px;
     display: flex;
 }
-.left-content,.right-content{
+.left-content,.right-content,.row-pokemon{
     flex-basis: 50%;
 }
-.left-content{
+.row-pokemon{
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(200px,0.5fr));
     grid-gap:2rem;

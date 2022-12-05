@@ -1,5 +1,4 @@
 import React, {useCallback} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Pokemon } from './types';
 import { PokemonsList } from './Components/Pages/Main/PokemonsList';
@@ -15,8 +14,12 @@ function App() {
 
   return (
     <div className="root">
-      <PokemonsList pokemons={pokemons} setPokemons={memorizedPokemonSetter}  fetchPokemonJSON={memorizedFetchPokemonJSON} onIconSelection={setSelectedPokemon}/>
-      <PokemonCard fetchPokemonJSON={memorizedFetchPokemonJSON} pokemonId={selectedPokemon} />
+        <h1 className='header'><b>Pokemons</b></h1>
+        <div className='left-card'>
+        <PokemonsList pokemons={pokemons} setPokemons={memorizedPokemonSetter}  fetchPokemonJSON={memorizedFetchPokemonJSON} onIconSelection={setSelectedPokemon}/>
+      </div>
+      <div className='right-content'><PokemonCard fetchPokemonJSON={memorizedFetchPokemonJSON} pokemonId={selectedPokemon} />
+    </div>
     </div>
   );
 

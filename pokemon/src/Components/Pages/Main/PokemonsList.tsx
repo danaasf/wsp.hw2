@@ -51,15 +51,11 @@ export const PokemonsList: React.FC<PokemonsListProp> = ({
 
     return(
         <>
-            <h2> Pokemons Page </h2>
-            <div className='page-container'>
-                </div>
-
-            <div className='left-content'>
+            <div className='container'>
             {
             pokemons && pokemons.map (pokemon => {
                 return (
-                <div className='row pokemon' key={pokemon.name}>
+                <div className='card' key={pokemon.name}>
                     <PokemonIcon pokemon={pokemon} onIconSelection={onIconSelection}/>
                 </div>
                 )
