@@ -6,7 +6,7 @@
 }
 body{
     background-color: #FCEEC8;
-    text-align: center;
+    text-align: c;
 }
 .container{
     width: 90%;
@@ -14,27 +14,28 @@ body{
     padding-top: 100px;
     display: flex;
 }
-.left-content,.right-content,.row-pokemon{
-    flex-basis: 50%;
-}
-.row-pokemon{
+
+.left-content{
     display: grid;
+    flex-basis:30%;
     grid-template-columns: repeat(auto-fit,minmax(200px,0.5fr));
     grid-gap:2rem;
 }
 .card{
     width: 300px;
     background-color:#9EDEF9;
-    border-radius: 1rem;
+    border-radius: 2rem;
     box-shadow: 0 5px 5px rgba(0,0,0,0.5);
     padding: 0 1.5rem;
     display: flex;
     align-items: center;
+    margin: 4rem;
     justify-content: space-between;
     box-sizing: border-box;
 }
 .right-content{
     width: 50%;
+    flex-basis: 70%;
     text-align: center;
     color: black;
     position: fixed;
@@ -50,15 +51,13 @@ body{
     font-weight: bold;
     letter-spacing: 1px;
 }
-.abilities{
-    width: 70%;
-    margin: auto;
+.right-content{
+    width: 50%;
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 1rem;
-}
-.abilities .group{
     background-color: #b74555;
     color: white;
     padding: 0.5rem;
@@ -69,18 +68,26 @@ body{
 .base-stat{
     margin-top: 2rem;
 }
-.btn-group{
-    display: flex;
+.btn-light {
+    color: #212529;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
 }
-.btn-group button{
-    outline: none;
-    border: none;
-    width: 150px;
-    padding: 0.3rem 0;
-    margin: 1rem;
-    font-size: 17px;
-    font-weight: bold;
-    color: white;
-    background-color: #b74555;
-    border-radius: 8px;
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
