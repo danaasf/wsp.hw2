@@ -40,13 +40,13 @@ export const PokemonCard: React.FC<PokemonIconProps> = ({fetchPokemonJSON, pokem
     return(
         <div className='right-content'>
            
-            {pokemonCard? (<div><p>name: {pokemonCard?.name} </p>
+            {pokemonCard? (<div><p><h2><u>name:</u></h2>{pokemonCard?.name} </p>
             <img src={pokemonCard.image} />
-            <p>height: {pokemonCard?.height}</p>
-            <p>weight: {pokemonCard?.weight}</p>
-            <p>type: {pokemonCard?.type.join(', ')} </p></div>) : "No Pokemon Selected"}
+            <p><h2>height:</h2> {pokemonCard?.height}</p>
+            <p><h2>weight:</h2> {pokemonCard?.weight}</p>
+            <p><h2>type:</h2> {pokemonCard?.type.join(', ')} </p></div>) : "No Pokemon Selected"}
             <div>
-            <button type="button" className="btn btn-light">I chose you</button>
+            {pokemonCard? (<button type="button" className="btn btn-light">I chose you</button>): " " }
             </div>
         </div>
     );
