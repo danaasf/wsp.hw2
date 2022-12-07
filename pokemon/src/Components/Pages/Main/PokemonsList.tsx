@@ -52,10 +52,11 @@ export const PokemonsList: React.FC<PokemonsListProp> = ({
     return(
         <>
             <div className='container'>
+            <br></br>
             {
             pokemons && pokemons.map (pokemon => {
                 return (
-                <div className='row pokemon' key={pokemon.name}>
+                <div className='row pokemon' key={pokemon.name}> 
                     <PokemonIcon pokemon={pokemon} onIconSelection={onIconSelection}/>
                 </div>
                 )

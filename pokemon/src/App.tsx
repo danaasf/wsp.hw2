@@ -14,8 +14,8 @@ function App() {
 
   return (
     <div className="root">
-        <h1 className='header'><b>Pokemons</b></h1>
-        <div className='left-content'>
+        <h1 className='header'><b>Choose a Pokemon to enter the battle!</b></h1>
+        <div className='left-content'> 
         <PokemonsList pokemons={pokemons} setPokemons={memorizedPokemonSetter}  fetchPokemonJSON={memorizedFetchPokemonJSON} onIconSelection={setSelectedPokemon}/>
       </div>
       <div className='right-content'><PokemonCard fetchPokemonJSON={memorizedFetchPokemonJSON} pokemonId={selectedPokemon} />
