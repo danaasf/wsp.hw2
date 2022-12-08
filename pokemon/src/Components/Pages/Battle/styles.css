@@ -1,3 +1,4 @@
-.Battle {
-    background-color: aqua;
+.Opponent {
+    background-color: rgb(224, 224, 107);
+    align-items: center;
 }

@@ -22,9 +22,9 @@ export interface BattlePokemon {
     name: string;
     image: string;
     moves: Array<string>;
-    mp: number;
+    /*mp: number;
     pa: number;
     pd: number;
     tf: number;
-    total_power: number;
+    total_power: number;*/
 }

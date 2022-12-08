@@ -22,8 +22,7 @@ function App() {
     //   <div className='right-content'><PokemonCard fetchPokemonJSON={memorizedFetchPokemonJSON} pokemonId={selectedPokemon} />
     // </div>
     // </div>
-
-    <Battle/>
+    <Battle/> 
   );
 
 }
