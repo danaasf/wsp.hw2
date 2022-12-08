@@ -40,7 +40,6 @@ export const PokemonCard: React.FC<PokemonIconProps> = ({fetchPokemonJSON, pokem
     },[pokemonJSON])
 
 
-
     return(
         <div className='right-content'>
            
@@ -61,7 +60,8 @@ export const PokemonCard: React.FC<PokemonIconProps> = ({fetchPokemonJSON, pokem
             <br></br> <br></br> 
     
                 <div className='choose-poke'>           
-            {pokemonCard? ( <a href='google.com'> <button type="button" className="btn btn-light">I choose you</button></a>): " " }
+            {pokemonCard? (  <button type="button" className="btn btn-light" > I choose you </button>): " " }
+            
                 </div>
         </div>
         

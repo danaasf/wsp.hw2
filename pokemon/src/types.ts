@@ -18,8 +18,13 @@ export interface CardInfo {
     speed: number;
 }
 
-export interface Battle {
-    stats: Array<number>;
-    result: boolean;
-
+export interface BattlePokemon {
+    name: string;
+    image: string;
+    moves: Array<string>;
+    mp: number;
+    pa: number;
+    pd: number;
+    tf: number;
+    total_power: number;
 }
