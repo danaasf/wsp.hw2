@@ -8,6 +8,7 @@ import { useEffect } from "react";
 export interface IOpponentPokemonProps {
     fetchOpponentJSON:  (random: number | undefined) => Promise<any>;
     random: number | undefined;
+    attackPower: number | undefined; 
 }
 
 export const OpponentPokemon: React.FC<IOpponentPokemonProps> = ({fetchOpponentJSON, random}) => {
@@ -47,7 +48,7 @@ export const OpponentPokemon: React.FC<IOpponentPokemonProps> = ({fetchOpponentJ
 
         //console.log(moves);
 
-
+        
         setOpponentPokemon({name,image,moves});
     },[OpponentJSON])
 

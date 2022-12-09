@@ -6,6 +6,7 @@ import { useEffect } from "react";
 export interface IUserPokemonProps {
     fetchUserJSON:  (Id: number | undefined) => Promise<any>;
     Id: number | undefined;
+    attackPower: number | undefined;
 }
 
 export const UserPokemon: React.FC<IUserPokemonProps> = ({fetchUserJSON, Id}) => {

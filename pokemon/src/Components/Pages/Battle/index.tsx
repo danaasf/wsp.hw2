@@ -3,6 +3,8 @@ import {UserPokemon} from './UserPokemon';
 import {OpponentPokemon} from './OpponentPokemon';
 import './styles.css'
 
+const [attackPower, setAttackPower] = React.useState<number>(-1);
+
 export interface IBattleContainerProps {
     fetchPokemonJSON:  (pokemonId: number | undefined) => Promise<any>;
     selectedBattlePokemon: number;
@@ -20,11 +22,11 @@ export const BattleContainer: React.FC<IBattleContainerProps> =({
     return(
         <div className="Battle">
             <h2>Your Opponent's Pokemon </h2>
-        <OpponentPokemon fetchOpponentJSON={fetchPokemonJSON} random={random}/>
+        <OpponentPokemon fetchOpponentJSON={fetchPokemonJSON} random={random} attackPower={attackPower}/>
         <br></br>
         <br></br>
         <h2> Your Pokemon </h2>
-        <UserPokemon fetchUserJSON={fetchPokemonJSON} Id={Id}/>
+        <UserPokemon fetchUserJSON={fetchPokemonJSON} Id={Id} attackPower={attackPower}/>
    </div> )
 }
 
