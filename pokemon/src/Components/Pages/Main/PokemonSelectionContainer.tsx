@@ -8,14 +8,14 @@ export interface IPokemonSelectionContainer {
     pokemons: Pokemon[];
     setPokemons: (pokemons: Pokemon[]) => void;
     fetchPokemonJSON:  (pokemonId: number | undefined) => Promise<any>;
-    onIconSelection: (pokemonId: number) => void;
+    onBattleConfirmation: (pokemonId: number) => void;
 }
 
 export const PokemonSelectionContainer: React.FC<IPokemonSelectionContainer> = ({
     pokemons,
     setPokemons,
     fetchPokemonJSON,
-    onIconSelection
+    onBattleConfirmation
 }) =>
 {
     const [selectedPokemonCard, setSelectedPokemonCard] = React.useState<number | undefined>(undefined);
@@ -24,9 +24,9 @@ export const PokemonSelectionContainer: React.FC<IPokemonSelectionContainer> = (
     <React.Fragment>
         <h1 className='header'><b>Choose a Pokemon to enter the battle!</b></h1>
         <div className='left-content'>
-            <PokemonsList pokemons={pokemons} setPokemons={setPokemons}  fetchPokemonJSON={fetchPokemonJSON} onIconSelection={onIconSelection} />
+            <PokemonsList pokemons={pokemons} setPokemons={setPokemons}  fetchPokemonJSON={fetchPokemonJSON} onIconSelection={setSelectedPokemonCard}  onBattleConfirmation={onBattleConfirmation}/>
         </div>
-        <div className='right-content'><PokemonCard fetchPokemonJSON={fetchPokemonJSON} pokemonId={selectedPokemonCard} />
+        <div className='right-content'><PokemonCard fetchPokemonJSON={fetchPokemonJSON} pokemonId={selectedPokemonCard} setSelectedBattlePokemon={onBattleConfirmation}/>
         </div>
     </React.Fragment>
     );

@@ -9,13 +9,15 @@ export interface PokemonsListProp {
     setPokemons: (pokemons: Pokemon[]) => void;
     fetchPokemonJSON:  (pokemonId: number | undefined) => Promise<any>;
     onIconSelection: (pokemonId: number) => void;
+    onBattleConfirmation: (pokemonId: number) => void;
 }
 
 export const PokemonsList: React.FC<PokemonsListProp> = ({
     pokemons,
     setPokemons,
     fetchPokemonJSON,
-    onIconSelection
+    onIconSelection,
+    onBattleConfirmation
 }) => {
 
     const [currentInput, setCurrentInput] = React.useState<string>('');
@@ -56,7 +58,7 @@ export const PokemonsList: React.FC<PokemonsListProp> = ({
             {
             pokemons && pokemons.map (pokemon => {
                 return (
-                <div className='row pokemon' key={pokemon.name}> 
+                <div className='row pokemon' key={pokemon.name}>
                     <PokemonIcon pokemon={pokemon} onIconSelection={onIconSelection}/>
                 </div>
                 )
