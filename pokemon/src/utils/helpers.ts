@@ -125,8 +125,9 @@ const getMoves = async (availableMoves: { move: IMove } []) => {
         const randomIndex = randomOrder.pop() as number;
         const randomMove = availableMoves[randomIndex].move;
         const moveJSON = await fetchMove(randomMove.url) as Record<string, any>;
+        const power = !!(moveJSON.power) ? moveJSON.power : moveJSON.pp
 
-        if (moveJSON.pp > 0 && moveJSON.target.name === 'selected-pokemon') { //the attack has power greater than 0, the attack can be used on another pokemon
+        if (power > 0 && moveJSON.target.name === 'selected-pokemon') { //the attack has power greater than 0, the attack can be used on another pokemon
             chosenMoves.push({name: randomMove.name, moveType: moveJSON.type, power: moveJSON.power});
         }
     }

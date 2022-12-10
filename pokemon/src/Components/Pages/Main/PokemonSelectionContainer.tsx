@@ -3,7 +3,7 @@ import './styles.css'
 import { IPokemon } from '../../../types';
 import {PokemonsList} from "./PokemonsList";
 import {PokemonCard} from "./PokemonCard";
-import header from "./header.png"
+import header from "./header.png";
 
 export interface IPokemonSelectionContainer {
     readonly pokemons: IPokemon[];
@@ -16,7 +16,6 @@ export const PokemonSelectionContainer: React.FC<IPokemonSelectionContainer> = (
 }) =>
 {
 
-    console.log('PokemonSelectionContainer', pokemons);
     const [selectedPokemonCard, setSelectedPokemonCard] = React.useState<number | undefined>(undefined);
 
     useEffect(() => {
@@ -26,9 +25,7 @@ export const PokemonSelectionContainer: React.FC<IPokemonSelectionContainer> = (
     return (<div className="pokemonSelection">
         <h1 className='header'>
             <img src={header}/>
-            <br></br>
-            <b>Choose a Pokemon to enter the battle!</b></h1>
-
+            <br></br><b>Choose a Pokemon to enter the battle!</b></h1>
         <div className="content">
             <PokemonsList pokemons={pokemons} onIconSelection={setSelectedPokemonCard}/>
             <PokemonCard pokemonId={selectedPokemonCard} setSelectedBattlePokemon={onBattleConfirmation}/>

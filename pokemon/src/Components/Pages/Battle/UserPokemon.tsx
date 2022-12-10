@@ -19,7 +19,7 @@ export const UserPokemon: React.FC<BattlePokemonPropsWithFreeWil> = ({battleProf
                 <img src={battleProfileImage} />
                 <span>
                     <h2><u>moves:</u></h2>
-                    {chosenMoves.map((move, index) => <button key={index} onClick={() => onAttackSelected(index)}> {move.name} {move.power} </button>)}
+                    {chosenMoves.map((move, index) => <button key={index} onClick={() => onAttackSelected(index)}> {move.name} <b>({move.power})</b></button>)}
                 </span>
             </div>
         </div>)

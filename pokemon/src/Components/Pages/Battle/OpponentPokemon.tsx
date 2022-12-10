@@ -15,7 +15,7 @@ export const OpponentPokemon: React.FC<BattlePokemonProps> = ({battleProfileImag
             <span><h2><u> name:</u>{name} </h2></span>
             <img src={battleProfileImage}/>
             <span><h2><u>moves:</u></h2>
-                {chosenMoves.map((move, index) => <button className='disabled' key={index}> {move.name} {move.power} </button>)}
+                {chosenMoves.map((move, index) => <button className='disabled' key={index}> {move.name} <b>({move.power})</b></button>)}
             </span>
         </div>
     </div>);

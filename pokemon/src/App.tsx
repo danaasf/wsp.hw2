@@ -26,12 +26,11 @@ function App() {
 
         if (isMyPokemonIndex > -1) {
             setSelectedBattlePokemonId(undefined);
-            setPokemons((prevState) => [...prevState.filter((pokemon) => pokemon.id === defeatedPokemonId)]);
+            setPokemons((prevState) => [...prevState.filter((pokemon) => pokemon.id !== defeatedPokemonId)]);
         } else {
             const pokemonJSON = await fetchPokemonJSON(defeatedPokemonId);
             const pokemon = await getPokemonFromJSON(pokemonJSON);
             setSelectedBattlePokemonId(undefined);
-            console.log('abc');
             setPokemons((prevState) => [...prevState, pokemon]);
         }
     }
@@ -46,17 +45,14 @@ function App() {
     const setInitialPokemonCollection = async () => {
         const prevState = loadPreviousState();
         if (!resetGame && prevState) {
-            console.log('setteing prev state');
             setPokemons((prev) => prevState || []);
         } else {
-            console.log('resetting...');
             const ids = getInitialIds();
             const promises: Promise<any> [] = [];
 
             ids.forEach((id) => promises.push(fetchPokemonJSON(id).then(async (pokemonJSON) => await getPokemonFromJSON(pokemonJSON))));
             const initialPokemonCollection = await Promise.all(promises);
             setPokemons((currSet) => {
-                console.log('setting shit');
                 return [...initialPokemonCollection]
             });
             saveCurrentState(pokemons);
@@ -82,13 +78,9 @@ function App() {
     }, [pokemons.length]);
 
     useEffect(() => {
-        console.log('isFirstRender', isFirstRender);
         if (!isFirstRender) {
-            console.log('resetting setter');
             saveCurrentState(pokemons)
         }
-
-        console.log(pokemons);
     }, [pokemons])
 
     return (

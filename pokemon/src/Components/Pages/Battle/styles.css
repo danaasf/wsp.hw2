@@ -1,8 +1,33 @@
+.battle {
+   height: 100%;
+   width: 100%;
+   position: absolute;
+   top: 0;
+   left: 0;
+   /* background-size:     cover;
+   background-repeat:   no-repeat;
+   background-position: center center;
+   display: flex;
+   flex-direction: column;
+   flex-grow: 1; */
+}
+
+.battle .opponent{
+   margin: auto;
+   /* margin-top: 2%; */
+}
+
+.battle .user {
+   margin: auto;
+   /* margin-bottom: 2%; */
+}
+
 .battle button {
    transition-duration: 0.4s;
    padding: 15px 32px;
    margin: 10px;
    cursor: pointer;
+   box-sizing: content-box;
 }
 
 .battle .opponent .disabled {
