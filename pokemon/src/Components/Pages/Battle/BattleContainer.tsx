@@ -39,7 +39,7 @@ export const BattleContainer: React.FC<IBattleContainerProps> =({
         onBattleEnded(getDefeatedPokemonId(selectedBattlePokemon, selectedBattlePokemon.chosenMoves[index], wildPokemon, wildPokemon?.chosenMoves[Math.floor(Math.random() * wildPokemon?.chosenMoves.length)]));
     }
 
-    return readyToLoad ? <div className="Battle">
+    return readyToLoad ? <div className="battle">
         {wildPokemon ? <OpponentPokemon {...wildPokemon}/> : <></>}
         {selectedBattlePokemon !== undefined ? <UserPokemon {...{onAttackSelected, ...selectedBattlePokemon}} /> : <React.Fragment></React.Fragment>}
     </div> : <></>

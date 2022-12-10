@@ -11,7 +11,7 @@ type BattlePokemonPropsWithFreeWil = {
 
 export const UserPokemon: React.FC<BattlePokemonPropsWithFreeWil> = ({battleProfileImage, name, chosenMoves, onAttackSelected}) => {
     return(
-        <div className="User">
+        <div className="user">
             <div>
                 <span>
                     <h2><u> name:</u>   {name} </h2>

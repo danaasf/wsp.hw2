@@ -1,7 +1,14 @@
-.Opponent {
-    background-color: rgb(224, 224, 107);
-    align-items: center;
+
+.pokemonSelection {
+    height: 90%;
 }
-.Battle {
-    background-color: aqua;
+ .Opponent{
+    background-image: url(./opponent.jpg);
+ }
+
+ .User{
+    background-image: url(./user.webp);
+width: 100%; 
 }
+
+ 

@@ -10,12 +10,12 @@ export type BattlePokemonProps = {
 }
 
 export const OpponentPokemon: React.FC<BattlePokemonProps> = ({battleProfileImage, name, chosenMoves}) => {
-    return (<div className="Opponent">
+    return (<div className="opponent">
         <div>
             <span><h2><u> name:</u>{name} </h2></span>
             <img src={battleProfileImage}/>
             <span><h2><u>moves:</u></h2>
-                {chosenMoves.map((move, index) => <button key={index}> {move.name} </button>)}
+                {chosenMoves.map((move, index) => <button className='disabled' key={index}> {move.name} </button>)}
             </span>
         </div>
     </div>);

@@ -15,9 +15,14 @@ export const PokemonSelectionContainer: React.FC<IPokemonSelectionContainer> = (
 }) =>
 {
 
+    console.log('PokemonSelectionContainer', pokemons);
     const [selectedPokemonCard, setSelectedPokemonCard] = React.useState<number | undefined>(undefined);
 
-    return (<React.Fragment>
+    useEffect(() => {
+        setSelectedPokemonCard(undefined);
+    }, [pokemons])
+
+    return (<div className="pokemonSelection">
         <h1 className='header'><b>Choose a Pokemon to enter the battle!</b></h1>
         <div className='left-content'>
             <PokemonsList pokemons={pokemons} onIconSelection={setSelectedPokemonCard}/>
@@ -25,5 +30,5 @@ export const PokemonSelectionContainer: React.FC<IPokemonSelectionContainer> = (
         <div className='right-content'>
             <PokemonCard pokemonId={selectedPokemonCard} setSelectedBattlePokemon={onBattleConfirmation}/>
         </div>
-    </React.Fragment>);
+    </div>);
 }

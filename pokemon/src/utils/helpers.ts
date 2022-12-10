@@ -116,7 +116,7 @@ const getTypeFactor = (attackType: string, defenseType: string) =>
     effectivenessChart[attackType] && effectivenessChart[attackType][defenseType] ? effectivenessChart[attackType][defenseType] : 1;
 const capitalizeFirstLetter = (word: string) => word.charAt(0).toUpperCase() + word.slice(1);
 const fetchMove = async (moveURL: string) => fetch(moveURL).then((res) => res.json());
-const getRandomIteration =  (arr: any[]) => arr.map((e, index) => Math.floor(Math.random() * (arr.length - index)));
+const getRandomIteration =  (arr: any[]) => arr.map((e, index) => index).sort(() => .5 - Math.random());
 const getMoves = async (availableMoves: { move: IMove } []) => {
     const chosenMoves: { name: string, moveType: string, power: number }[] = [];
     const randomOrder = getRandomIteration(availableMoves);
@@ -192,5 +192,17 @@ export const useIsFirstRender = () => {
     useEffect(() => {
         isFirstRenderRef.current = false;
     }, []);
+
     return isFirstRenderRef.current;
 };
+
+export const saveCurrentState = (currentPokemons: IPokemon[]) => {
+    localStorage.setItem('currentPokemons', JSON.stringify(currentPokemons));
+}
+
+export const loadPreviousState = (): IPokemon [] | null =>{
+    const prevStateJSON = window.localStorage.getItem('currentPokemons');
+    const previousState = prevStateJSON ? JSON.parse(prevStateJSON) as IPokemon[] : null;
+
+    return previousState;
+}

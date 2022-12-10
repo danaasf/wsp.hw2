@@ -42,7 +42,7 @@ export const PokemonCard: React.FC<PokemonIconProps> = ({pokemonId, setSelectedB
     return(
         <div className='right-content'>
 
-            {pokemonCard? (<div><span><h2><u>name:</u></h2>{pokemonCard?.name} </span>
+            {pokemonCard? (<div><span><h2><u>name:{pokemonCard?.name}</u></h2> </span>
             <img src={pokemonCard.image} />
             <span><h2>height:</h2> {pokemonCard?.height}</span>
             <span><h2>weight:</h2> {pokemonCard?.weight}</span>

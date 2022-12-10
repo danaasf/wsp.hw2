@@ -3,7 +3,13 @@ import './App.css';
 import {BattleContainer} from "./Components/Pages/Battle/BattleContainer";
 import {IPokemon} from "./types";
 import {PokemonSelectionContainer} from "./Components/Pages/Main/PokemonSelectionContainer";
-import {fetchPokemonJSON, getPokemonFromJSON, useIsFirstRender} from "./utils/helpers";
+import {
+    fetchPokemonJSON,
+    getPokemonFromJSON,
+    loadPreviousState,
+    saveCurrentState,
+    useIsFirstRender
+} from "./utils/helpers";
 import {DefeatAnnouncementContainer} from "./Components/Pages/Defeat/Defeat";
 
 function App() {
@@ -15,20 +21,20 @@ function App() {
     const [selectedBattlePokemonId, setSelectedBattlePokemonId] = React.useState<number | undefined>(undefined);
     const [engagingPokemon, setEngagingPokemon] = React.useState<IPokemon | undefined>(undefined);
 
-    const onBattleEnded = useCallback(async (defeatedPokemonId: number) => {
+    const onBattleEnded = async (defeatedPokemonId: number) => {
         const isMyPokemonIndex = pokemons?.findIndex(({id}) => id === defeatedPokemonId);
 
         if (isMyPokemonIndex > -1) {
-            pokemons.splice(isMyPokemonIndex)
             setSelectedBattlePokemonId(undefined);
-            setPokemons([...pokemons]);
+            setPokemons((prevState) => [...prevState.filter((pokemon) => pokemon.id === defeatedPokemonId)]);
         } else {
             const pokemonJSON = await fetchPokemonJSON(defeatedPokemonId);
             const pokemon = await getPokemonFromJSON(pokemonJSON);
             setSelectedBattlePokemonId(undefined);
-            setPokemons((currSet) => [...currSet, pokemon]);
+            console.log('abc');
+            setPokemons((prevState) => [...prevState, pokemon]);
         }
-    }, [resetGame, pokemons.length, selectedBattlePokemonId]);
+    }
     const getInitialIds = useCallback((): Set<number> => {
         const idSet: Set<number> = new Set();
         while (idSet.size < 3) {
@@ -37,18 +43,30 @@ function App() {
 
         return idSet;
     }, []);
-    const setInitialPokemonCollection = useCallback(async () => {
-        const ids = getInitialIds();
-        const promises: Promise<any> [] = [];
+    const setInitialPokemonCollection = async () => {
+        const prevState = loadPreviousState();
+        if (!resetGame && prevState) {
+            console.log('setteing prev state');
+            setPokemons((prev) => prevState || []);
+        } else {
+            console.log('resetting...');
+            const ids = getInitialIds();
+            const promises: Promise<any> [] = [];
 
-        ids.forEach((id) => promises.push(fetchPokemonJSON(id).then(async (pokemonJSON) => await getPokemonFromJSON(pokemonJSON))));
-        const initialPokemonCollection = await Promise.all(promises);
-        setPokemons((currSet) => [...currSet, ...initialPokemonCollection]);
-    }, [resetGame, pokemons.length])
+            ids.forEach((id) => promises.push(fetchPokemonJSON(id).then(async (pokemonJSON) => await getPokemonFromJSON(pokemonJSON))));
+            const initialPokemonCollection = await Promise.all(promises);
+            setPokemons((currSet) => {
+                console.log('setting shit');
+                return [...initialPokemonCollection]
+            });
+            saveCurrentState(pokemons);
+        }
+    }
 
     useEffect(() => {
         setInitialPokemonCollection();
-    }, []);
+        setResetGame(false);
+    }, [resetGame]);
 
     useEffect(() => {
         if (selectedBattlePokemonId) {
@@ -60,17 +78,29 @@ function App() {
     }, [selectedBattlePokemonId]);
 
     useEffect(() => {
-       setGameOver(!isFirstRender && pokemons.length < 1)
+        setGameOver(!isFirstRender && pokemons.length < 1)
     }, [pokemons.length]);
 
+    useEffect(() => {
+        console.log('isFirstRender', isFirstRender);
+        if (!isFirstRender) {
+            console.log('resetting setter');
+            saveCurrentState(pokemons)
+        }
+
+        console.log(pokemons);
+    }, [pokemons])
 
     return (
         <div className="app">
             {gameOver ?
                 (<DefeatAnnouncementContainer />)
                 : (!selectedBattlePokemonId ?
-                    <PokemonSelectionContainer pokemons={pokemons} onBattleConfirmation={setSelectedBattlePokemonId}/>
+                     <React.Fragment>
+                         <PokemonSelectionContainer pokemons={pokemons} onBattleConfirmation={setSelectedBattlePokemonId}/>
+                     </React.Fragment>
                     : <BattleContainer selectedBattlePokemon={engagingPokemon} onBattleEnded={onBattleEnded}/>) }
+            {!gameOver && !selectedBattlePokemonId && (<div hidden={resetGame} onClick={() => setResetGame(true)} className="resetButton"><button>reset</button></div>)}
         </div>
     );
 

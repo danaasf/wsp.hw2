@@ -3,9 +3,17 @@
     margin: 0;
     font-family:'Courier New', Courier, monospace;
     text-align: center;
-    background-color: rgb(224, 224, 107);
 }
 
+body{
+    background-color: rgb(224, 224, 107);
+
+}
+
+div{
+    background-color: rgb(224, 224, 107);
+
+}
 .left-content {
     flex-basis: 50%;
 }
@@ -25,10 +33,14 @@
 
 .icon{
     width: fit-content;
-    background-color: white;
+    background-color:  white;
     padding: 5px;
     margin-bottom: 1em;
     justify-content: space-between;
+
+}
+.iconimg{
+    background-color: rgb(224, 224, 107);
 
 }
 .right-content{
