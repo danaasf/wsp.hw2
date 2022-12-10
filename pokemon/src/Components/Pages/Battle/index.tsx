@@ -11,7 +11,6 @@ export interface IBattleContainerProps {
     onBattleEnded: (defeatedPokemonId: number) => Promise<any>;
 }
 
-
 export const BattleContainer: React.FC<IBattleContainerProps> =({
     fetchPokemonJSON,
     selectedBattlePokemon,
