@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/wsp.hw2/static/css/main.c76e2518.css",
+    "main.js": "/wsp.hw2/static/js/main.04f53082.js",
+    "static/js/787.ab378faf.chunk.js": "/wsp.hw2/static/js/787.ab378faf.chunk.js",
+    "index.html": "/wsp.hw2/index.html",
+    "main.c76e2518.css.map": "/wsp.hw2/static/css/main.c76e2518.css.map",
+    "main.04f53082.js.map": "/wsp.hw2/static/js/main.04f53082.js.map",
+    "787.ab378faf.chunk.js.map": "/wsp.hw2/static/js/787.ab378faf.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c76e2518.css",
+    "static/js/main.04f53082.js"
+  ]
+}
