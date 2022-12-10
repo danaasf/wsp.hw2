@@ -3,16 +3,15 @@ import {UserPokemon} from './UserPokemon';
 import {OpponentPokemon} from './OpponentPokemon';
 import './styles.css'
 import {IPokemon} from "../../../types";
-import {getDefeatedPokemonId, getPokemonFromJSON} from "../../../utils/helpers";
+import {fetchPokemonJSON, getDefeatedPokemonId, getPokemonFromJSON} from "../../../utils/helpers";
 
 export interface IBattleContainerProps {
-    fetchPokemonJSON:  (pokemonId: number | undefined) => Promise<any>;
     selectedBattlePokemon?: IPokemon;
     onBattleEnded: (defeatedPokemonId: number) => Promise<any>;
 }
 
+
 export const BattleContainer: React.FC<IBattleContainerProps> =({
-    fetchPokemonJSON,
     selectedBattlePokemon,
     onBattleEnded
     })=> {
@@ -39,8 +38,6 @@ export const BattleContainer: React.FC<IBattleContainerProps> =({
         selectedBattlePokemon &&
         onBattleEnded(getDefeatedPokemonId(selectedBattlePokemon, selectedBattlePokemon.chosenMoves[index], wildPokemon, wildPokemon?.chosenMoves[Math.floor(Math.random() * wildPokemon?.chosenMoves.length)]));
     }
-
-    console.log(wildPokemon);
 
     return readyToLoad ? <div className="Battle">
         {wildPokemon ? <OpponentPokemon {...wildPokemon}/> : <></>}

@@ -13,14 +13,14 @@ export const UserPokemon: React.FC<BattlePokemonPropsWithFreeWil> = ({battleProf
     return(
         <div className="User">
             <div>
-                <p>
+                <span>
                     <h2><u> name:</u>   {name} </h2>
-                </p>
+                </span>
                 <img src={battleProfileImage} />
-                <p>
+                <span>
                     <h2><u>moves:</u></h2>
                     {chosenMoves.map((move, index) => <button key={index} onClick={() => onAttackSelected(index)}> {move.name} </button>)}
-                </p>
+                </span>
             </div>
         </div>)
 };

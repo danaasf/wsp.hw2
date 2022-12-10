@@ -1,17 +1,15 @@
-import { keyboard } from '@testing-library/user-event/dist/keyboard';
 import React, {useEffect} from 'react';
 import '../../../App.css';
-import { IPokemon } from '../../../types';
 import { CardInfo } from '../../../types';
+import {fetchPokemonJSON} from "../../../utils/helpers";
 
 export interface PokemonIconProps {
-    fetchPokemonJSON:  (pokemonId: number | undefined) => Promise<any>;
     setSelectedBattlePokemon: (pokemonId: number) => void;
     pokemonId: number | undefined;
 }
 
 
-export const PokemonCard: React.FC<PokemonIconProps> = ({fetchPokemonJSON, pokemonId, setSelectedBattlePokemon}) => {
+export const PokemonCard: React.FC<PokemonIconProps> = ({pokemonId, setSelectedBattlePokemon}) => {
 
     const [pokemonJSON, setPokemonJSON] = React.useState<any|undefined>(undefined);
     useEffect(() => {

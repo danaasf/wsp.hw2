@@ -1,4 +1,6 @@
-import {IAttack, IBattlePlan, IMove, IPokemon} from "../types";
+import {IAttack, IMove, IPokemon} from "../types";
+import {useEffect, useRef} from 'react';
+
 const effectivenessChart: Record<string, Record<string, number>> = {
     normal: {
         rock: 0.5,
@@ -114,8 +116,8 @@ const getTypeFactor = (attackType: string, defenseType: string) =>
     effectivenessChart[attackType] && effectivenessChart[attackType][defenseType] ? effectivenessChart[attackType][defenseType] : 1;
 const capitalizeFirstLetter = (word: string) => word.charAt(0).toUpperCase() + word.slice(1);
 const fetchMove = async (moveURL: string) => fetch(moveURL).then((res) => res.json());
-const getMoves = async (availableMoves: {move : IMove} [])  => {
-    const chosenMoves: {name: string, moveType: string, power: number}[] = [];
+const getMoves = async (availableMoves: { move: IMove } []) => {
+    const chosenMoves: { name: string, moveType: string, power: number }[] = [];
 
     for (let i = 0; i < 4 && availableMoves.length > 0; i++) {
         const randomIndex = Math.floor(Math.random() * availableMoves.length);
@@ -132,7 +134,7 @@ const getMoves = async (availableMoves: {move : IMove} [])  => {
 export const fetchPokemonJSON = async (pokemonId: number | undefined): Promise<any> => pokemonId ? fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`).then((res) => res.json()) : Promise.resolve();
 
 export const getPokemonFromJSON = async (pokemonJSON: any): Promise<IPokemon> => {
-    const {weight,height} = pokemonJSON
+    const {weight, height} = pokemonJSON
     const name = capitalizeFirstLetter(pokemonJSON.name)
     const hp = pokemonJSON.stats[0].base_stat;
     const attack = pokemonJSON.stats[1].base_stat;
@@ -143,9 +145,20 @@ export const getPokemonFromJSON = async (pokemonJSON: any): Promise<IPokemon> =>
     const battleProfileImage = pokemonJSON.sprites.other.dream_world.front_default;
     const id = pokemonJSON.id;
     const type = pokemonJSON.types[0].type.name;
-    const a = {weight, height, name, hp, attack, defense, availableMoves, chosenMoves, selectionProfileImage, battleProfileImage, id, type}
-
-    console.log(a);
+    const a = {
+        weight,
+        height,
+        name,
+        hp,
+        attack,
+        defense,
+        availableMoves,
+        chosenMoves,
+        selectionProfileImage,
+        battleProfileImage,
+        id,
+        type
+    }
 
     return a;
 }
@@ -162,13 +175,21 @@ const getTotalPower = (attacker: IPokemon, move: IAttack, defender: IPokemon) =>
 // where p2 refers to the wild pokemon.
 export const getDefeatedPokemonId = (p1?: IPokemon, plan1?: IAttack, p2?: IPokemon, plan2?: IAttack) => {
     if (!p1 || !p2 || !plan1 || !plan2) {
-        console.log('missing pokemons');
 
         return 1;
     }
+
     const totalPower1 = getTotalPower(p1, plan1, p2);
     const totalPower2 = getTotalPower(p2, plan2, p1);
 
     return totalPower1 >= totalPower2 ? p2.id : p1.id;
 }
 
+
+export const useIsFirstRender = () => {
+    const isFirstRenderRef = useRef(true);
+    useEffect(() => {
+        isFirstRenderRef.current = false;
+    }, []);
+    return isFirstRenderRef.current;
+};
