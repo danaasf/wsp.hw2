@@ -1,6 +1,7 @@
 import React from "react";
 import '../../../App.css';
 import {IAttack} from "../../../types";
+import BattleAnnouncement from "./BattleAnnouncement";
 
 
 export type BattlePokemonProps = {
@@ -15,7 +16,7 @@ export const OpponentPokemon: React.FC<BattlePokemonProps> = ({battleProfileImag
             <span><h2><u> name:</u>{name} </h2></span>
             <img src={battleProfileImage}/>
             <span><h2><u>moves:</u></h2>
-                {chosenMoves.map((move, index) => <button className='disabled' key={index}> {move.name} <b>({move.power? move.power: 0})</b></button>)}
+                {chosenMoves.map((move, index) => <button className='disabled' key={index}> {move.name} <b>({move.power})</b></button>)}
             </span>
         </div>
     </div>);

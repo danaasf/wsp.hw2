@@ -1,10 +1,11 @@
 .battle {
-   height: 100%;
    width: 100%;
+   height: 100%;
    position: absolute;
    top: 0;
    left: 0;
-   /* background-size:     cover;
+   /* background-image: url('https://i.pinimg.com/originals/15/11/39/15113952d52bd1cbb1b7b446baffdbb3.jpg');
+   background-size:     cover;
    background-repeat:   no-repeat;
    background-position: center center;
    display: flex;
@@ -14,12 +15,12 @@
 
 .battle .opponent{
    margin: auto;
-   /* margin-top: 2%; */
+   margin-top: 2%;
 }
 
 .battle .user {
    margin: auto;
-   /* margin-bottom: 2%; */
+   margin-bottom: 2%;
 }
 
 .battle button {
@@ -37,6 +38,33 @@
 .battle .user button:hover {
    background-color: white; /* Green */
    color: white;
+}
+
+.battle .result {
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   padding: 40px;
+   transform: translate(-50%, -50%);
+   font-size: 5em;
+   font-weight: bolder;
+   font-style: italic;
+   background-color: rgba(255, 255, 255, 0.7);
+   border-radius: 20px;
+}
+
+.fade-out {
+   animation: fadeOut ease 10s;
+   animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+   0% {
+       opacity: 1;
+   }
+   100% {
+       opacity: 0;
+   }
 }
 
 .user{

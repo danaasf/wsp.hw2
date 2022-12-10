@@ -4,6 +4,7 @@ import {OpponentPokemon} from './OpponentPokemon';
 import './styles.css'
 import {IPokemon} from "../../../types";
 import {fetchPokemonJSON, getDefeatedPokemonId, getPokemonFromJSON} from "../../../utils/helpers";
+import BattleAnnouncement from "./BattleAnnouncement";
 
 export interface IBattleContainerProps {
     selectedBattlePokemon?: IPokemon;
@@ -15,7 +16,8 @@ export const BattleContainer: React.FC<IBattleContainerProps> =({
     selectedBattlePokemon,
     onBattleEnded
     })=> {
-    const [wildPokemon, setWildPokemon] = React.useState<undefined | IPokemon>(undefined);
+    const [victory, setVictory] = React.useState<boolean | undefined>();
+    const [wildPokemon, setWildPokemon] = React.useState<undefined | IPokemon>();
     const  wildPokemonId = Math.floor(Math.random() * 151);
     const [readyToLoad, setReadyToLoad] = React.useState(false);
 
@@ -34,12 +36,21 @@ export const BattleContainer: React.FC<IBattleContainerProps> =({
     }, [wildPokemon, selectedBattlePokemon])
 
     const onAttackSelected = (index: number) => {
-        wildPokemon &&
-        selectedBattlePokemon &&
-        onBattleEnded(getDefeatedPokemonId(selectedBattlePokemon, selectedBattlePokemon.chosenMoves[index], wildPokemon, wildPokemon?.chosenMoves[Math.floor(Math.random() * wildPokemon?.chosenMoves.length)]));
+        if (!wildPokemon || !selectedBattlePokemon) {
+            return;
+        }
+
+        const loserId =
+        getDefeatedPokemonId(selectedBattlePokemon, selectedBattlePokemon.chosenMoves[index], wildPokemon, wildPokemon?.chosenMoves[Math.floor(Math.random() * wildPokemon?.chosenMoves.length)]);
+        setVictory(loserId === wildPokemon.id);
+
+        setTimeout(() => {
+            onBattleEnded(loserId);
+        }, 3000);
     }
 
     return readyToLoad ? <div className="battle">
+        {victory !== undefined ? <BattleAnnouncement victory={victory} /> : <></>}
         {wildPokemon ? <OpponentPokemon {...wildPokemon}/> : <></>}
         {selectedBattlePokemon !== undefined ? <UserPokemon {...{onAttackSelected, ...selectedBattlePokemon}} /> : <React.Fragment></React.Fragment>}
     </div> : <></>
