@@ -5,51 +5,38 @@
     text-align: center;
 }
 
-body{
-    background-color: rgb(224, 224, 107);
-
+.content {
+    display: flex;
 }
 
-div{
-    background-color: rgb(224, 224, 107);
+.left-container {
+    margin: 10px 50px;
+    max-width: 60%;
+    min-width: 50%;
+}
 
-}
-.left-content {
-    flex-basis: 50%;
-}
 .container{
-    margin: auto;
-    padding-top: 100px;
-    row-gap: 10px;
-    column-gap: 20px;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
-    flex-basis:50%;
-    grid-template-columns: repeat(auto-fit,minmax(200px,0.5fr));
-    grid-gap:1rem;
-    align-items: center;
+}
+
+.container>* {
+    margin: 10px;
 }
 
 .icon{
+    cursor: pointer;
     width: fit-content;
-    background-color:  white;
+    background-color:rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
     padding: 5px;
     margin-bottom: 1em;
     justify-content: space-between;
 
 }
-.iconimg{
-    background-color: rgb(224, 224, 107);
-
-}
-.right-content{
-    flex-basis: 50%;
-    align-items: center;
-    color: black;
-    position: fixed;
-    top:100px;
-    right: 10px;
+.icon:hover{
+    background-color:rgba(255, 255, 255, 1);
+    transition-duration: 0.5s;
 }
 .right-content img{
     margin: 1.5rem;
@@ -62,10 +49,10 @@ div{
 }
 
 .right-content{
-    background-color: white;
+    background-color:rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
     width: fit-content;
     display: flex;
-    align-items: flex-end;
     flex-direction: column;
     margin-top: 1rem;
     color: black;
@@ -83,7 +70,6 @@ div{
 }
 .btn-light {
     color: #212529;
-    background-color: rgb(224, 224, 107);
     border-color: #f8f9fa;
 }
 
@@ -99,9 +85,33 @@ div{
 }
 
 .right-content {
-    width: 300px;
-    height: 600px;
+    width: 40%;
+    max-width: 40%;
+    min-width: 30%;
+    margin: 20px 50px;
+    height: max-content;
+    min-height: 600px;
     overflow-y: scroll;
     scrollbar-color: rebeccapurple green;
     scrollbar-width: thin;
   }
+
+.pokemonSelection {
+    height: 90%;
+}
+
+.pokemonSelection .header {
+    margin-top: 50px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.selection {
+    background-color: rgb(255, 255, 107, 0.7);
+    cursor: pointer;
+}
+
+.selection:hover {
+    background-color: rgba(224, 224, 107, 1);
+    transition-duration: 0.3s;
+}

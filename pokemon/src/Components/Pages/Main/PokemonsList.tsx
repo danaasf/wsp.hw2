@@ -13,16 +13,15 @@ export const PokemonsList: React.FC<IPokemonsListProp> = ({
     pokemons,
     onIconSelection
 }) => (
-        <>
+        <div className="left-container">
             <div className='container'>
-            <br></br>
             {pokemons.map(pokemon => {
                 const { name, selectionProfileImage, id } = pokemon;
                 return (
-                <div className='row pokemon' key={pokemon.name}>
+                <div className='pokemon' key={pokemon.name}>
                     <PokemonIcon {...{name, selectionProfileImage, id, onIconSelection}}/>
                 </div>
                 )})}
             </div>
-        </>
+        </div>
     );

@@ -42,7 +42,7 @@ export const PokemonCard: React.FC<PokemonIconProps> = ({pokemonId, setSelectedB
     return(
         <div className='right-content'>
 
-            {pokemonCard? (<div><span><h2><u>name:{pokemonCard?.name}</u></h2> </span>
+            {pokemonCard? (<div><span><h2><u>name</u>: {pokemonCard?.name}</h2></span>
             <img src={pokemonCard.image} />
             <span><h2>height:</h2> {pokemonCard?.height}</span>
             <span><h2>weight:</h2> {pokemonCard?.weight}</span>
@@ -59,7 +59,7 @@ export const PokemonCard: React.FC<PokemonIconProps> = ({pokemonId, setSelectedB
             <br></br> <br></br>
 
                 <div className='choose-poke'>
-            {(pokemonCard && pokemonId)? (  <button type="button" onClick={() => setSelectedBattlePokemon(pokemonId)} className="btn btn-light" > I choose you </button>): " " }
+            {(pokemonCard && pokemonId)? (  <button type="button" onClick={() => setSelectedBattlePokemon(pokemonId)} className="btn btn-light selection" > I choose you </button>): " " }
                 </div>
         </div>
 

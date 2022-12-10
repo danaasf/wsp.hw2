@@ -1,14 +1,22 @@
-
-.pokemonSelection {
-    height: 90%;
-}
- .Opponent{
-    background-image: url(./opponent.jpg);
- }
-
- .User{
-    background-image: url(./user.webp);
-width: 100%; 
+.battle button {
+   transition-duration: 0.4s;
+   padding: 15px 32px;
+   margin: 10px;
+   cursor: pointer;
 }
 
- 
+.battle .opponent .disabled {
+   pointer-events: none;
+}
+
+.battle .user button:hover {
+   background-color: white; /* Green */
+   color: white;
+}
+
+.user{
+   background-image: url(./user.webp);
+}
+.opponent{
+   background-image: url(./opponent.jpg);
+}
