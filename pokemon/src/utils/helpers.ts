@@ -116,13 +116,16 @@ const getTypeFactor = (attackType: string, defenseType: string) =>
     effectivenessChart[attackType] && effectivenessChart[attackType][defenseType] ? effectivenessChart[attackType][defenseType] : 1;
 const capitalizeFirstLetter = (word: string) => word.charAt(0).toUpperCase() + word.slice(1);
 const fetchMove = async (moveURL: string) => fetch(moveURL).then((res) => res.json());
+const getRandomIteration =  (arr: any[]) => arr.map((e, index) => Math.floor(Math.random() * (arr.length - index)));
 const getMoves = async (availableMoves: { move: IMove } []) => {
     const chosenMoves: { name: string, moveType: string, power: number }[] = [];
+    const randomOrder = getRandomIteration(availableMoves);
 
-    for (let i = 0; i < 4 && availableMoves.length > 0; i++) {
-        const randomIndex = Math.floor(Math.random() * availableMoves.length);
-        const randomMove = availableMoves.splice(randomIndex)[0].move;
+    while(chosenMoves.length < 4 && randomOrder.length > 0) {
+        const randomIndex = randomOrder.pop() as number;
+        const randomMove = availableMoves[randomIndex].move;
         const moveJSON = await fetchMove(randomMove.url) as Record<string, any>;
+
         if (moveJSON.pp > 0 && moveJSON.target.name === 'selected-pokemon') { //the attack has power greater than 0, the attack can be used on another pokemon
             chosenMoves.push({name: randomMove.name, moveType: moveJSON.type, power: moveJSON.power});
         }
@@ -145,7 +148,7 @@ export const getPokemonFromJSON = async (pokemonJSON: any): Promise<IPokemon> =>
     const battleProfileImage = pokemonJSON.sprites.other.dream_world.front_default;
     const id = pokemonJSON.id;
     const type = pokemonJSON.types[0].type.name;
-    const a = {
+    return {
         weight,
         height,
         name,
@@ -159,8 +162,6 @@ export const getPokemonFromJSON = async (pokemonJSON: any): Promise<IPokemon> =>
         id,
         type
     }
-
-    return a;
 }
 
 const getTotalPower = (attacker: IPokemon, move: IAttack, defender: IPokemon) => {
