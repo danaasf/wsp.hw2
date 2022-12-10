@@ -1,35 +1,60 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {BattleContainer} from "./Components/Pages/Battle/index";
-import {Pokemon} from "./types";
+import {IPokemon} from "./types";
 import {PokemonSelectionContainer} from "./Components/Pages/Main/PokemonSelectionContainer";
+import {fetchPokemonJSON, getPokemonFromJSON} from "./utils/helpers";
 
 function App() {
 
-  const capitalizeFirstLetter = (word: string) => word.charAt(0).toUpperCase() + word.slice(1); //TODO REFACTOR
-  const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
-  const memorizedPokemonSetter = useCallback((pokemons: Pokemon[]) => setPokemons(pokemons), []);
-  const fetchPokemonJSON = async (pokemonId: number | undefined): Promise<any> => pokemonId ? fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`).then((res) => res.json()) : Promise.resolve();
+  const [pokemons, setPokemons] = React.useState<IPokemon[]>([]);
   const memorizedFetchPokemonJSON = useCallback((pokemonId: number | undefined) => fetchPokemonJSON(pokemonId), []);
-  const [selectedBattlePokemon, setSelectedBattlePokemon] = React.useState<number | undefined>(undefined);
+  const [selectedBattlePokemonId, setSelectedBattlePokemonId] = React.useState<number | undefined>(undefined);
   const onBattleEnded = async (defeatedPokemonId : number) => {
     const isMyPokemonIndex = pokemons?.findIndex(({id}) => id === defeatedPokemonId);
 
     if (isMyPokemonIndex > -1) {
-      setPokemons(pokemons.splice(isMyPokemonIndex));
+      pokemons.splice(isMyPokemonIndex)
+      setPokemons(pokemons);
     } else {
       const pokemonJSON = await memorizedFetchPokemonJSON(defeatedPokemonId);
+      const pokemon = await getPokemonFromJSON(pokemonJSON);
 
-      pokemons.push({name: capitalizeFirstLetter(pokemonJSON.name), image: pokemonJSON.sprites.front_default, id: defeatedPokemonId})
-      setPokemons(pokemons);
+      setPokemons([...pokemons, pokemon]);
     }
-    setSelectedBattlePokemon(undefined);
+    setSelectedBattlePokemonId(undefined);
   }
 
+  const getInitialIds = (): Set<number> => {
+    const idSet: Set<number> = new Set();
+    while(idSet.size < 3) {
+      idSet.add(Math.floor(Math.random() * 151));
+    }
+
+    return idSet;
+  }
+  const getInitialPokemonCollection = async() => {
+    const ids = getInitialIds();
+    const promises: Promise<any> [] = [];
+
+    ids.forEach((id) => promises.push(fetchPokemonJSON(id).then((pokemonJSON) => getPokemonFromJSON(pokemonJSON))));
+
+    const initialPokemonCollection = await Promise.all(promises);
+    console.log(pokemons);
+
+    setPokemons([...pokemons, ...initialPokemonCollection]);
+  }
+
+
+  useEffect(() => {
+    console.log('setPokemons', setPokemons);
+    getInitialPokemonCollection();
+  }, []);
+
   return (
-    <div className="root">
-      {!selectedBattlePokemon ? <PokemonSelectionContainer pokemons={pokemons} setPokemons={memorizedPokemonSetter} fetchPokemonJSON={memorizedFetchPokemonJSON} onBattleConfirmation={setSelectedBattlePokemon} />
-          : <BattleContainer fetchPokemonJSON={memorizedFetchPokemonJSON} selectedBattlePokemon={selectedBattlePokemon}  onBattleEnded={onBattleEnded}/>}
+    <div>
+      {!selectedBattlePokemonId ? <PokemonSelectionContainer fetchPokemonJSON={memorizedFetchPokemonJSON} pokemons={pokemons} onBattleConfirmation={setSelectedBattlePokemonId} />
+          : <BattleContainer fetchPokemonJSON={memorizedFetchPokemonJSON} selectedBattlePokemon={pokemons.find((pokemon: IPokemon) => pokemon.id = selectedBattlePokemonId)} onBattleEnded={onBattleEnded}/>}
     </div>
   );
 

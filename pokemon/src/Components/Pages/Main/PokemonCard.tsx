@@ -1,7 +1,7 @@
 import { keyboard } from '@testing-library/user-event/dist/keyboard';
 import React, {useEffect} from 'react';
 import '../../../App.css';
-import { Pokemon } from '../../../types';
+import { IPokemon } from '../../../types';
 import { CardInfo } from '../../../types';
 
 export interface PokemonIconProps {
@@ -44,17 +44,17 @@ export const PokemonCard: React.FC<PokemonIconProps> = ({fetchPokemonJSON, pokem
     return(
         <div className='right-content'>
 
-            {pokemonCard? (<div><p><h2><u>name:</u></h2>{pokemonCard?.name} </p>
+            {pokemonCard? (<div><span><h2><u>name:</u></h2>{pokemonCard?.name} </span>
             <img src={pokemonCard.image} />
-            <p><h2>height:</h2> {pokemonCard?.height}</p>
-            <p><h2>weight:</h2> {pokemonCard?.weight}</p>
-            <p><h2>type:</h2> {pokemonCard?.type.join(', ')} </p>
-            <p><h2>hp:</h2> {pokemonCard?.hp}</p>
-            <p><h2>attack:</h2> {pokemonCard?.attack}</p>
-            <p><h2>special attack:</h2> {pokemonCard?.special_attack}</p>
-            <p><h2>defense:</h2> {pokemonCard?.defense}</p>
-            <p><h2>special defense:</h2> {pokemonCard?.special_defense}</p>
-            <p><h2>speed:</h2> {pokemonCard?.speed}</p>
+            <span><h2>height:</h2> {pokemonCard?.height}</span>
+            <span><h2>weight:</h2> {pokemonCard?.weight}</span>
+            <span><h2>type:</h2> {pokemonCard?.type.join(', ')} </span>
+            <span><h2>hp:</h2> {pokemonCard?.hp}</span>
+            <span><h2>attack:</h2> {pokemonCard?.attack}</span>
+            <span><h2>special attack:</h2> {pokemonCard?.special_attack}</span>
+            <span><h2>defense:</h2> {pokemonCard?.defense}</span>
+            <span><h2>special defense:</h2> {pokemonCard?.special_defense}</span>
+            <span><h2>speed:</h2> {pokemonCard?.speed}</span>
             </div>
             ) : "No Pokemon Selected"}
 

@@ -1,7 +1,32 @@
-export interface Pokemon {
+export interface IPokemon {
+    weight: number;
+    height: number;
+    hp: number;
     name: string;
-    image: string;
+    selectionProfileImage: string;
+    battleProfileImage: string;
     id: number;
+    attack: number;
+    defense:number;
+    availableMoves:  {move : IMove} [];
+    chosenMoves: IAttack [];
+    type: string;
+}
+
+export interface IAttack {
+    name: string,
+    moveType: string,
+    power: number
+}
+
+export interface IMove {
+    name: string;
+    url: string;
+}
+
+export interface IBattlePlan {
+    pokemon: IPokemon,
+    move: string
 }
 
 export interface CardInfo {

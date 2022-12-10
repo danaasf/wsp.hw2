@@ -1,22 +1,24 @@
 import React from 'react';
 import '../../../App.css';
-import { Pokemon } from '../../../types';
+import { IPokemon } from '../../../types';
 
 export interface PokemonIconProps {
-    pokemon: Pokemon,
+    name: string,
+    selectionProfileImage: string,
+    id: number;
     onIconSelection: (pokemonId: number) => void;
 }
 
 export const PokemonIcon: React.FC<PokemonIconProps> = ({
-    pokemon,
-    onIconSelection
-}) => {
-
-    const { name, image, id } = pokemon;
+        name,
+        selectionProfileImage,
+         id,
+        onIconSelection
+    }) => {
 
     return(
             <div className='icon' onClick={() => onIconSelection(id)}>
-                {image? <img src={image} alt={name}/> : null}
+                {selectionProfileImage ? <img src={selectionProfileImage} alt={name}/> : null}
                 <div className='preview'>
                     <h2 className='pokemonName'>
                         <b>{name}</b>

@@ -1,13 +1,13 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {UserPokemon} from './UserPokemon';
 import {OpponentPokemon} from './OpponentPokemon';
 import './styles.css'
-
-const [attackPower, setAttackPower] = React.useState<number>(-1);
+import {IPokemon} from "../../../types";
+import {getDefeatedPokemonId, getPokemonFromJSON} from "../../../utils/helpers";
 
 export interface IBattleContainerProps {
     fetchPokemonJSON:  (pokemonId: number | undefined) => Promise<any>;
-    selectedBattlePokemon: number;
+    selectedBattlePokemon?: IPokemon;
     onBattleEnded: (defeatedPokemonId: number) => Promise<any>;
 }
 
@@ -17,17 +17,36 @@ export const BattleContainer: React.FC<IBattleContainerProps> =({
     selectedBattlePokemon,
     onBattleEnded
     })=> {
-    const  random = Math.floor(Math.random() * 151);
-    const Id= selectedBattlePokemon;
-    return(
-        <div className="Battle">
-            <h2>Your Opponent's Pokemon </h2>
-        <OpponentPokemon fetchOpponentJSON={fetchPokemonJSON} random={random} attackPower={attackPower}/>
-        <br></br>
-        <br></br>
-        <h2> Your Pokemon </h2>
-        <UserPokemon fetchUserJSON={fetchPokemonJSON} Id={Id} attackPower={attackPower}/>
-   </div> )
+    const [wildPokemon, setWildPokemon] = React.useState<undefined | IPokemon>(undefined);
+    const  wildPokemonId = Math.floor(Math.random() * 151);
+    const [readyToLoad, setReadyToLoad] = React.useState(false);
+
+    useEffect(() => {
+        fetchPokemonJSON(wildPokemonId).then((res) => {
+            getPokemonFromJSON(res).then((pokemon: IPokemon) => {
+                setWildPokemon(pokemon);
+            })
+        })
+    }, [])
+
+    useEffect(() => {
+        if (wildPokemon && selectedBattlePokemon) {
+            setReadyToLoad(true)
+        }
+    }, [wildPokemon, selectedBattlePokemon])
+
+    const onAttackSelected = (index: number) => {
+        wildPokemon &&
+        selectedBattlePokemon &&
+        onBattleEnded(getDefeatedPokemonId(selectedBattlePokemon, selectedBattlePokemon.chosenMoves[index], wildPokemon, wildPokemon?.chosenMoves[Math.floor(Math.random() * wildPokemon?.chosenMoves.length)]));
+    }
+
+    console.log(wildPokemon);
+
+    return readyToLoad ? <div className="Battle">
+        {wildPokemon ? <OpponentPokemon {...wildPokemon}/> : <></>}
+        {selectedBattlePokemon !== undefined ? <UserPokemon {...{onAttackSelected, ...selectedBattlePokemon}} /> : <React.Fragment></React.Fragment>}
+    </div> : <></>
 }
 
 export default BattleContainer;
